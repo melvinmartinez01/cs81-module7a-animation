@@ -10,6 +10,9 @@
   <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
   <div id="status">Please wait</div>
 
+  <button id="startBtn">Start</button>  //Adding buttons
+  <button id="pauseBtn">Pause</button>
+
   //These variables store references to HTML elements so JavaScript can update them
   <script>
     function runLoadingAnimation() {
@@ -20,9 +23,45 @@
       let index = 0; // Index keeps track of which animation frame is currently being shown
       let cycleCount = 0;
       const maxCycles = 10; //maxCycles determines how many full animation loops run before stopping
+      let interval = null; //Stores the interval ID
 
       //Creative idea: Add start/pause buttons so that the user can control the animation 
+      function startAnimation() {  //This starts the animation for the Start button
+        if (interval !== null) return;
 
+        interval = setInterval(() => {
+          loader.textContent = frames[index % frames.length];
+          index++;
+
+          if (index % frames.length === 0) {
+            cycleCount++;
+          }
+
+          if (cycleCount >= maxCycles) {
+            clearInterval(interval);
+            interval = null;
+            loader.textContent = "✅";
+            status.textContent = "Done!";
+          }
+        }; 500);
+      }
+
+      function pauseAnimation() {   //This pauses the animation for the Pause button
+        if (interval === null) return;
+
+        clearInterval(interval);
+        interval = null;
+        status.textContent = "Paused";
+      }
+      //Connects buttons to their functions
+      document.getElementById("startBtn").addEventListener("click", startAnimation);
+      document.getElementById("pauseBtn").addEventListener("click", pauseAnimation);
+    }
+
+    runLoadingAnimation();
+      
+      /* ORIGINAL CODE. In order for me to do step 5, I needed to "delete" lines 31 to 44
+      
       const interval = setInterval(() => {  //setInterval runs this block of code repeatedly every 500 milliseconds
         loader.textContent = frames[index % frames.length];  //This updates the loader element to show the next symbol in the animation
         index++;  //index is increased so the animation can move to the next frame
@@ -36,6 +75,7 @@
         }
       }, 500);
     }
+    */
 
     runLoadingAnimation(); //This line is what starts the loading animation when the page finishes loading
   </script>
