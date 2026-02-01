@@ -21,6 +21,8 @@
       let cycleCount = 0;
       const maxCycles = 10; //maxCycles determines how many full animation loops run before stopping
 
+      //Creative idea: Add start/pause buttons so that the user can control the animation 
+
       const interval = setInterval(() => {  //setInterval runs this block of code repeatedly every 500 milliseconds
         loader.textContent = frames[index % frames.length];  //This updates the loader element to show the next symbol in the animation
         index++;  //index is increased so the animation can move to the next frame
@@ -40,4 +42,3 @@
 
 </body>
 </html>
-  
