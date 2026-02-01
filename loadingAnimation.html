@@ -1,3 +1,4 @@
+<!-- DOCTYPE tells the browser this is an html document -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,31 +10,32 @@
   <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div>
   <div id="status">Please wait</div>
 
+  //These variables store references to HTML elements so JavaScript can update them
   <script>
     function runLoadingAnimation() {
       const loader = document.getElementById("loader");
       const status = document.getElementById("status");
 
-      const frames = ["⏳", "⌛", ".", "..", "..."];
-      let index = 0;
+      const frames = ["⏳", "⌛", ".", "..", "..."];  //This array stores the symbols used for the loading animation
+      let index = 0; // Index keeps track of which animation frame is currently being shown
       let cycleCount = 0;
-      const maxCycles = 10;
+      const maxCycles = 10; //maxCycles determines how many full animation loops run before stopping
 
-      const interval = setInterval(() => {
-        loader.textContent = frames[index % frames.length];
-        index++;
+      const interval = setInterval(() => {  //setInterval runs this block of code repeatedly every 500 milliseconds
+        loader.textContent = frames[index % frames.length];  //This updates the loader element to show the next symbol in the animation
+        index++;  //index is increased so the animation can move to the next frame
         if (index % frames.length === 0) {
           cycleCount++;
         }
         if (cycleCount >= maxCycles) {
-          clearInterval(interval);
+          clearInterval(interval);  //clearInterval stops the repeating timer so that the animation does not run forever
           loader.textContent = "✅";
           status.textContent = "Done!";
         }
       }, 500);
     }
 
-    runLoadingAnimation();
+    runLoadingAnimation(); //This line is what starts the loading animation when the page finishes loading
   </script>
 
 </body>
